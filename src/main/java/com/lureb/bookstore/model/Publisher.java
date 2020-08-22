@@ -6,24 +6,22 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Author {
+public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String address;
+    private String city;
+    private String zipCode;
 
-    @ManyToMany(mappedBy = "authors")
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
     private Set<Book> books = new HashSet<>();
 
-    public Author() {
-    }
-
-    public Author(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Publisher() {
     }
 
     public Long getId() {
@@ -34,20 +32,36 @@ public class Author {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public Set<Book> getBooks() {
@@ -62,7 +76,7 @@ public class Author {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Author author = (Author) o;
+        Publisher author = (Publisher) o;
         return Objects.equals(id, author.id);
     }
 
@@ -73,10 +87,12 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{" +
+        return "Publisher{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", zipCode=" + zipCode +
                 ", books=" + books +
                 '}';
     }
